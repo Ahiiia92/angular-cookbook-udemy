@@ -1,5 +1,7 @@
 <a href="#"
-   class="list-group-item list-group-item-action clearfix d-flex justify-content-between align-items-center">
+   class="list-group-item list-group-item-action clearfix d-flex justify-content-between align-items-center"
+  (click)="onSelected()"
+>
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
     <p class="list-group-item-text mb-1">{{ recipe.description }}</p>
