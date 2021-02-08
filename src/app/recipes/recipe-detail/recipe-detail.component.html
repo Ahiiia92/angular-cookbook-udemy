@@ -2,20 +2,20 @@
   <div class="col-sm-12">
     <img [src]="recipe.imagePath"
          alt="{{ recipe.name }}"
-         class="img-responsive"
-    style="max-height: 300px;">
+         class="card-img-top card-image"
+         style="max-height: 300px;">
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12">
-    <h1>{{ recipe.name }}</h1>
+    <h1 class="card-title mt-2">{{ recipe.name }}</h1>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12">
-    <div appDropdown class="btn-group" id="dropdownBtn" (click)="show = !show">
+    <div appDropdown class="btn-group mb-2" id="dropdownBtn" (click)="show = !show">
       <button class="btn btn-primary dropdown-toggle" aria-expanded="false">
         Manage Recipe <span class="caret"></span>
       </button>
@@ -29,11 +29,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12">{{ recipe.description }}</div>
+  <p class="col-sm-12 card-text">{{ recipe.description }}</p>
+  <p class="col-sm-12 card-text">Ingredients</p>
 </div>
 
-<div class="row">
-  <div class="col-sm-12">
-    Ingredients
-  </div>
-</div>
