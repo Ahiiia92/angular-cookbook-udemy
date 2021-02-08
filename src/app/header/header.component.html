@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
+    <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true" (click)="show = !show">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item"><a href="#" class="nav-link" (click)="onSelect('recipe')">Recipes</a></li>
         <li class="nav-item"><a href="#" class="nav-link" (click)="onSelect('shopping-list')">Shopping List</a></li>
@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" role="button">Manage<span class="ui-icon-caret-1-e"></span></a>
-          <div class="dropdown-menu" (click)="collapsed = !collapsed">
+          <div class="dropdown-menu" [class.show]="show" >
             <a href="#" class="dropdown-item">Save Data</a>
             <a href="#" class="dropdown-item">Fetch Data</a>
           </div>

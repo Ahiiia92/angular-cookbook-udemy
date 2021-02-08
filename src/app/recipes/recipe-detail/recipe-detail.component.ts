@@ -7,6 +7,8 @@ import {Recipe} from "../recipe.model";
   styleUrls: ['./recipe-detail.component.sass']
 })
 export class RecipeDetailComponent implements OnInit {
+  show = false;
+
   @Input() recipe: Recipe;
   constructor() { }
 
