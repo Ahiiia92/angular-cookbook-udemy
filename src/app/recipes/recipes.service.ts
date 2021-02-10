@@ -39,6 +39,8 @@ export class RecipesService {
 
   addToShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
-    console.log("you're inside the recipe comp.");
+    // for(let i of ingredients) {
+    //   this.shoppingListService.addIngredient(i);
+    // }
   }
 }
