@@ -12,13 +12,22 @@ export class ShoppingListService {
   ];
 
   getIngredients() {
-    return this.ingredients;
+    return this.ingredients.slice();
   }
-
-  constructor() { }
 
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
-    // this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsChanged.emit(this.ingredients.slice());
+  }
+
+  addIngredients(ingredients: Ingredient[]) {
+    console.log("you're inside the shopping-list comp.");
+    this.ingredients.push(...ingredients);
+    console.log("added to the array");
+    this.ingredientsChanged.emit(this.ingredients.slice());
+    console.log("Mon array d'ingrédients dans ma shopping list:");
+    console.log(this.getIngredients());
+    console.log("Mes ingrédients de la recette");
+    console.log(ingredients);
   }
 }

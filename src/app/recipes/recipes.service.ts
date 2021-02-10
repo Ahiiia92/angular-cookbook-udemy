@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Recipe} from "./recipe.model";
 import {Ingredient} from "../shared/ingredient.model";
+import {ShoppingListService} from "../shopping-list/shopping-list.service";
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,15 @@ export class RecipesService {
       ])
   ];
 
+  constructor(private shoppingListService: ShoppingListService) { }
+
   // We need slice to get a copy of the array itself, and we really can't have access to our original array define above. So it's really private.
   getRecipes() {
     return this.recipes.slice();
   }
-  constructor() { }
+
+  addToShoppingList(ingredients: Ingredient[]) {
+    this.shoppingListService.addIngredients(ingredients);
+    console.log("you're inside the recipe comp.");
+  }
 }
