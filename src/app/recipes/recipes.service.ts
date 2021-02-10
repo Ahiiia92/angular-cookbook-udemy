@@ -17,10 +17,5 @@ export class RecipesService {
   getRecipes() {
     return this.recipes.slice();
   }
-
-  onSelect(recipe: Recipe) {
-
-  }
-
   constructor() { }
 }
