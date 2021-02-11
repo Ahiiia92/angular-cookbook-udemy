@@ -39,6 +39,16 @@ export class RecipesService {
     return this.recipes.slice();
   }
 
+  getRecipe(id: number) {
+    for (let recipe of this.recipes) {
+       if (recipe['id'] == id) {
+         console.log(recipe);
+         return recipe;
+       }
+    }
+    // return this.recipes[id];
+  }
+
   addToShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
     // for(let i of ingredients) {
