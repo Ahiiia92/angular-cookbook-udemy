@@ -17,3 +17,5 @@
 - H2 Database
 - JPA
 - Dev Tool
+
+To pair with the backend repo: **cookbook-backend-repo**, link [here](https://github.com/Ahiiia92/cookbook-backend).
