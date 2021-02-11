@@ -8,15 +8,15 @@
     </div>
     <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
       <ul class="nav navbar-nav mr-auto">
-        <li class="nav-item"><a [routerLink]="['recipes']"  class="nav-link" (click)="onSelect('recipe')">Recipes</a></li>
-        <li class="nav-item"><a [routerLink]="['shopping-list']" class="nav-link" (click)="onSelect('shopping-list')">Shopping List</a></li>
+        <li class="nav-item"><a [routerLink]="['recipes']" [routerLinkActive]="'active'" class="nav-link">Recipes</a></li>
+        <li class="nav-item"><a [routerLink]="['shopping-list']" class="nav-link" [routerLinkActive]="'active'" >Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item dropdown" (click)="show = !show">
-          <a href="#" class="nav-link dropdown-toggle" role="button">Manage<span class="ui-icon-caret-1-e"></span></a>
+          <a style="cursor: pointer;" class="nav-link dropdown-toggle" role="button">Manage<span class="ui-icon-caret-1-e"></span></a>
           <div class="dropdown-menu" [class.show]="show" >
-            <a href="#" class="dropdown-item">Save Data</a>
-            <a href="#" class="dropdown-item">Fetch Data</a>
+            <a style="cursor: pointer;" class="dropdown-item">Save Data</a>
+            <a style="cursor: pointer;" class="dropdown-item">Fetch Data</a>
           </div>
         </li>
       </ul>
