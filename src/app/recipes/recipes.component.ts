@@ -11,16 +11,16 @@ import {Ingredient} from "../shared/ingredient.model";
   providers: [RecipesService, ShoppingListService]
 })
 export class RecipesComponent implements OnInit {
-  selectedRecipe: Recipe;
+  // selectedRecipe: Recipe;
   constructor(private recipesService: RecipesService) { }
 
   ngOnInit() {
-    // setup the listener to be informed about the changes
-    this.recipesService.selectedRecipe
-      .subscribe(
-      (recipe: Recipe) => {
-        this.selectedRecipe = recipe;
-      }
-    );
+    // setup the listener to be informed about the changes we don't need it anymore because we use [recipe.id] with routing.
+    // this.recipesService.selectedRecipe
+    //   .subscribe(
+    //   (recipe: Recipe) => {
+    //     this.selectedRecipe = recipe;
+    //   }
+    // );
   }
 }

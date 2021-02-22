@@ -1,16 +1,16 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import { Injectable} from '@angular/core';
 import {Recipe} from "./recipe.model";
 import {Ingredient} from "../shared/ingredient.model";
 import {ShoppingListService} from "../shopping-list/shopping-list.service";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
   // New Property:
-  selectedRecipe = new EventEmitter<Recipe>();
+  // selectedRecipe = new Subject<Recipe>();
 
   // ================================ WITHOUT BACKEND CONNECTION ====================================
   constructor(private shoppingListService: ShoppingListService) {
