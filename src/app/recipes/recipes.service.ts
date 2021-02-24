@@ -56,7 +56,7 @@ export class RecipesService {
 
   // ================================ WITH BACKEND CONNECTION ====================================
   // Tell Angular to fetch the local on which runs our backend for the Recipes RestController:
-  private baseUrl = 'http://localhost:8080/';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private shoppingListService: ShoppingListService,
               private http: HttpClient) {}
@@ -75,7 +75,7 @@ export class RecipesService {
     return this.http.post(`${this.baseUrl}`, recipe);
   }
 
-  updateRecipe(value: any, id: Recipe): Observable<any> {
+  updateRecipe(id: number, value: any): Observable<any> {
     return  this.http.put(`${this.baseUrl}/recipes/${id}`, value);
   }
 

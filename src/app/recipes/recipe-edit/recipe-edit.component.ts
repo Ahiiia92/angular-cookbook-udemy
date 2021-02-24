@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RecipesService} from "../recipes.service";
 import {Recipe} from "../recipe.model";
-import {Ingredient} from "../../shared/ingredient.model";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FoodCategory} from "../../shared/foodCategory.model";
+import {Difficulty} from "../../shared/difficulty.model";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-recipe-edit',
@@ -12,7 +14,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class RecipeEditComponent implements OnInit {
   id: number;
-  recipe: Recipe;
+  recipe: Recipe = new Recipe();
+  recipeToUpdate: Recipe;
   // it assume we are creating an new recipe and we are not in editMode.
   editMode = false;
   submitted = false;
@@ -21,6 +24,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private formBuilder: FormBuilder,
               private recipesService: RecipesService) { }
 
   ngOnInit(): void {
@@ -37,31 +41,22 @@ export class RecipeEditComponent implements OnInit {
       'name': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required),
       'imagePath': new FormControl(null, Validators.required),
-      'ingredient': new FormControl('salade')
+      'ingredients': new FormControl('salade')
     })
+
+    // if we are in editing mode, we want to the existing filled in in the form
+    if(this.editMode) {
+      this.recipesService.getARecipe(this.id)
+        .pipe(first())
+        .subscribe(
+          res => this.editForm.patchValue(res)
+        );
+    }
   }
 
+  // convenience to go back to the /recipes URL.
   goToList() {
     this.router.navigate(['../'], {relativeTo: this.route});
-  }
-
-  // ============ Creating a new Recipe ============
-  newRecipe(): void {
-    this.submitted = false;
-    this.recipe = new Recipe();
-  }
-
-  create() {
-    this.recipesService.createRecipe(this.recipe)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.recipe = new Recipe();
-          this.goToList();
-        }, error => {
-          console.log(error.message);
-        }
-      );
   }
 
   onSubmit() {
@@ -72,17 +67,42 @@ export class RecipeEditComponent implements OnInit {
     } else  {
       this.create();
     }
+    this.goToList();
   }
+
+  // ============ Creating a new Recipe ============
+  create() {
+    this.recipesService.createRecipe(this.recipe)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          console.log('Form: ' + this.editForm);
+          console.log('Recipe: ' + this.recipe);
+          this.recipe = this.editForm.value;
+          this.goToList();
+        }, error => {
+          console.log(error.message);
+        }
+      );
+  }
+
+
 
   // ============ Updating a Recipe ============
   update() {
-    this.recipesService.updateRecipe(this.id, this.recipe).subscribe(
+    this.recipesService.updateRecipe(this.id, this.recipeToUpdate)
+      .pipe(first())
+      .subscribe(
       data => {
         console.log(data);
-        this.recipe = new Recipe();
+        console.log('Form: ' + this.editForm);
+        console.log('Recipe: ' + this.recipe);
+        console.log('RecipeToUpdate: ' + this.recipeToUpdate);
+        this.recipeToUpdate = this.editForm.value;
         this.goToList();
       }, error => {
-        console.log(error.message);
+        console.log(error);
       }
     )
   }
