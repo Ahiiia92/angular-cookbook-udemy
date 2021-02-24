@@ -40,8 +40,7 @@ export class RecipeEditComponent implements OnInit {
     this.editForm = new FormGroup({
       'name': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required),
-      'imagePath': new FormControl(null, Validators.required),
-      'ingredients': new FormControl('salade')
+      'imagePath': new FormControl(null, Validators.required)
     })
 
     // if we are in editing mode, we want to the existing filled in in the form

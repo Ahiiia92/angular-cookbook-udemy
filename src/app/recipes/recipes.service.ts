@@ -75,8 +75,8 @@ export class RecipesService {
     return this.http.post(`${this.baseUrl}`, recipe);
   }
 
-  updateRecipe(id: number, value: any): Observable<any> {
-    return  this.http.put(`${this.baseUrl}/recipes/${id}`, value);
+  updateRecipe(id: number, recipe: Object): Observable<Object> {
+    return  this.http.put(`${this.baseUrl}/recipes/${id}`, recipe);
   }
 
   deleteRecipe(id: number): Observable<any> {
