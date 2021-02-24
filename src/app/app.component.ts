@@ -10,9 +10,8 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 export class AppComponent implements OnInit {
   isHome = false;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router) {
-  }
+  constructor(private router: Router) {}
+
   ngOnInit() {
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
