@@ -1,1 +1,28 @@
-<p>recipe-edit works!</p>
+<h3 *ngIf="editMode">Update Recipe</h3>
+<h3 *ngIf="!editMode">New Recipe</h3>
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-group" id="name" [(ngModel)]="recipe.name" name="Name">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-group" id="description" [(ngModel)]="recipe.description" name="Description">
+    </div>
+
+    <div class="form-group">
+      <label for="imagePath">Image URL</label>
+      <input type="text" class="form-group" id="imagePath" [(ngModel)]="recipe.imagePath" name="Image Url">
+    </div>
+
+    <div class="form-group">
+      <label for="ingredients">Ingredients</label>
+      <input type="text" class="form-group" id="ingredients" [(ngModel)]="recipe.ingredients" name="Ingredients">
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>

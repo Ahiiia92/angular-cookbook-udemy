@@ -11,8 +11,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class RecipeListComponent implements OnInit {
   // With Backend
-  // recipes: Observable<Recipe[]>;
-  recipes: Recipe[];
+  recipes: Observable<Recipe[]>;
+  // recipes: Recipe[];
 
   constructor(private recipesService: RecipesService,
               private router: Router,
@@ -20,7 +20,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.recipes = this.recipesService.getRecipes();
+    this.recipes = this.recipesService.getRecipeList();
   }
 
   onNewRecipe() {
