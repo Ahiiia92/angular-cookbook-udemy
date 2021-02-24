@@ -20,6 +20,10 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
     this.recipes = this.recipesService.getRecipeList();
   }
 
