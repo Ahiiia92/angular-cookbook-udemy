@@ -1,29 +1,37 @@
 <h3 *ngIf="editMode">Update Recipe</h3>
 <h3 *ngIf="!editMode">New Recipe</h3>
 <div [hidden]="submitted">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" [(ngModel)]="recipe.name" name="Name">
+      <input type="text" class="form-control" id="name" formControlName="name"  name="Name">
+      <span
+        *ngIf="!editForm.get('name').valid && editForm.get('name').touched"
+        class="help-footnote">Please enter a Name</span>
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" [(ngModel)]="recipe.description" name="Description">
+      <input type="text" class="form-control" id="description" formControlName="description" name="Description">
+      <span
+        *ngIf="!editForm.get('description').valid && editForm.get('description').touched"
+        class="help-footnote">Please enter a Description</span>
     </div>
 
     <div class="form-group">
       <label for="imagePath">Image URL</label>
-      <input type="text" class="form-control" id="imagePath" [(ngModel)]="recipe.imagePath" name="Image Url">
+      <input type="text" class="form-control" id="imagePath" formControlName="imagePath" name="Image Url">
+      <span
+        *ngIf="!editForm.get('imagePath').valid && editForm.get('imagePath').touched"
+        class="help-footnote">Please enter an Image path</span>
     </div>
 
     <div class="form-group">
       <label for="ingredients">Ingredients</label>
-      <select class="form-control" id="ingredients" [(ngModel)]="recipe.ingredients" name="Ingredients">
-        <option value="ing1">Ing 1</option>
-        <option value="ing2">Ing 2</option>
-        <option value="ing3">Ing 3</option>
-        <option value="ing4">Ing 4</option>
+      <select class="form-control" id="ingredients" name="Ingredients" formControlName="ingredient">
+        <div  *ngFor="let ingredient of ingredients">
+          <option [value]="ingredient"  >{{ ingredient }}</option>
+        </div>
       </select>
     </div>
 

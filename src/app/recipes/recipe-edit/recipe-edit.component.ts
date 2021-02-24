@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RecipesService} from "../recipes.service";
 import {Recipe} from "../recipe.model";
+import {Ingredient} from "../../shared/ingredient.model";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +16,8 @@ export class RecipeEditComponent implements OnInit {
   // it assume we are creating an new recipe and we are not in editMode.
   editMode = false;
   submitted = false;
+  ingredients = ['banane', 'salade'];
+  editForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,6 +32,13 @@ export class RecipeEditComponent implements OnInit {
           this.editMode = params['id'] != null;
         }
       )
+
+    this.editForm = new FormGroup({
+      'name': new FormControl(null, Validators.required),
+      'description': new FormControl(null, Validators.required),
+      'imagePath': new FormControl(null, Validators.required),
+      'ingredient': new FormControl('salade')
+    })
   }
 
   goToList() {
@@ -54,6 +65,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.editForm);
     this.submitted = true;
     if(this.editMode) {
       this.update();
