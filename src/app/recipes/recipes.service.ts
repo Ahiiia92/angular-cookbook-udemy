@@ -4,6 +4,7 @@ import {Ingredient} from "../shared/ingredient.model";
 import {ShoppingListService} from "../shopping-list/shopping-list.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,7 @@ export class RecipesService {
 
   // ================================ WITH BACKEND CONNECTION ====================================
   // Tell Angular to fetch the local on which runs our backend for the Recipes RestController:
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = `${environment.apiUrl}`;
 
   constructor(private shoppingListService: ShoppingListService,
               private http: HttpClient) {}
