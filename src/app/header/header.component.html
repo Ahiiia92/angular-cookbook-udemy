@@ -9,6 +9,7 @@
     <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item"><a [routerLink]="['recipes']" [routerLinkActive]="'active'" class="nav-link">Recipes</a></li>
+        <li class="nav-item"><a [routerLink]="['login']" class="nav-link" [routerLinkActive]="'active'" >Authenticate</a></li>
         <li class="nav-item"><a [routerLink]="['shopping-list']" class="nav-link" [routerLinkActive]="'active'" >Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

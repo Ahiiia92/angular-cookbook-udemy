@@ -18,6 +18,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { HttpClientModule } from "@angular/common/http";
+import {AuthComponent} from "./auth/auth.component";
+import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { HttpClientModule } from "@angular/common/http";
     PageNotFoundComponent,
     HomepageComponent,
     RecipeEditComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

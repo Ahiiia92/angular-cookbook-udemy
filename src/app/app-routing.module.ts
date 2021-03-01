@@ -9,6 +9,7 @@ import {RecipeDetailComponent} from "./recipes/recipe-detail/recipe-detail.compo
 import {RecipeItemComponent} from "./recipes/recipe-list/recipe-item/recipe-item.component";
 import {RecipeStartComponent} from "./recipes/recipe-start/recipe-start.component";
 import {RecipeEditComponent} from "./recipes/recipe-edit/recipe-edit.component";
+import {AuthComponent} from "./auth/auth.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full'},
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: ':id/edit', component: RecipeEditComponent }
     ]},
   { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'login', component: AuthComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'not-found'}
 ];
