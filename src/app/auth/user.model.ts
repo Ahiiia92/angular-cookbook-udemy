@@ -8,7 +8,9 @@ export class User {
 
   get token() {
     // add a validation check about the expiration date of having one or not AND already expired:
-    if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate)
+    if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+      return null;
+    }
     return this._token;
   }
 }

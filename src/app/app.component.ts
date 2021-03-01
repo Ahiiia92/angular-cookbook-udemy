@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {AuthService} from "./auth/auth.service";
 
 
 @Component({
@@ -10,7 +11,8 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 export class AppComponent implements OnInit {
   isHome = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private authService: AuthService) {}
 
   ngOnInit() {
     this.router.events.subscribe((e) => {
@@ -18,5 +20,7 @@ export class AppComponent implements OnInit {
         e.url === '/' ? this.isHome = true : this.isHome = false;
       }
     });
+
+    this.authService.autoLogin();
   }
 }

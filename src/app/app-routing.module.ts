@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: ':id/edit', component: RecipeEditComponent }
     ]},
   { path: 'shopping-list', component: ShoppingListComponent },
-  { path: 'login', component: AuthComponent },
+  { path: 'auth', component: AuthComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'not-found'}
 ];

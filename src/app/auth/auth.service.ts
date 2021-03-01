@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, tap} from "rxjs/operators";
-import {Subject, throwError} from "rxjs";
+import {BehaviorSubject, Subject, throwError} from "rxjs";
 import {User} from "./user.model";
+import {Router} from "@angular/router";
 
 export interface AuthResponseData {
   // good practice to define the type of data you're working with.
@@ -17,12 +18,16 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  user = new Subject<User>();
-  constructor(private http: HttpClient) {
+  // user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
+  private tokenExpirationTimer: any;
+
+  constructor(private http: HttpClient,
+              private router: Router) {
   }
+
   signup(email: string, password: string) {
     // send a request to the signup URL
-    // AIzaSyAvvCUg_qtwG-2RoNmVDK_kDvdfVBisWWY
     // using <AuthResponseData> in order to specify with which kind of data we are working with when we'll get our response.
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAvvCUg_qtwG-2RoNmVDK_kDvdfVBisWWY',
       {
@@ -37,6 +42,7 @@ export class AuthService {
       })
     );
   }
+
   login(email: string, password: string) {
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyAvvCUg_qtwG-2RoNmVDK_kDvdfVBisWWY',
       {
@@ -52,6 +58,43 @@ export class AuthService {
     )
   }
 
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string
+    } = JSON.parse(localStorage.getItem('userData'));
+    if(!userData) {
+      return;
+    }
+    const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+
+    // does the user have a valid token? loadedUser.token is only true because of our getter in User.model.ts
+    if(loadedUser.token) {
+      this.user.next(loadedUser);
+      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
+  }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if(this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  // need to call our method in login authentication
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
   private handlAuth(email: string, userId: string, token: string, expiresIn: number) {
     // generate a token with the token in millisecond
     const expirationDate = new Date(
@@ -64,10 +107,12 @@ export class AuthService {
       expirationDate
     );
     this.user.next(user);
+    this.autoLogout(expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-      let errorMessage = 'An unknow Error occurred!';
+      let errorMessage = 'An unknown Error occurred!';
       if (!errorRes.error || errorRes.error.error) {
         return throwError(errorMessage);
       }
