@@ -13,6 +13,10 @@ export class AuthComponent {
   isLogginMode = true;
   isLoading = false;
   error: string = null;
+  invalidLogin = false;
+  loginSuccess = false;
+  errorMessage = 'Invalid Credentials';
+  successMessage: string;
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -22,6 +26,41 @@ export class AuthComponent {
     this.isLogginMode = !this.isLogginMode;
   }
 
+  // onSubmit(form: NgForm) {
+  //   if (!form.valid) {
+  //     return;
+  //   }
+  //   const email = form.value.email;
+  //   const password = form.value.password;
+  //
+  //   let authObservable: Observable<AuthResponseData>;
+  //
+  //   this.isLoading = true;
+  //   if (this.isLogginMode) {
+  //     authObservable = this.authService.login(email, password);
+  //   } else {
+  //     authObservable = this.authService.signup(email, password);
+  //   }
+  //   authObservable.subscribe(
+  //     resData => {
+  //       console.log(resData);
+  //       this.isLoading = false;
+  //       this.loginSuccess = true;
+  //       this.successMessage = 'Login Successful!'
+  //       // navigate to recipes
+  //       this.router.navigate(['/recipes']);
+  //     }, errorMessage => {
+  //       console.log(errorMessage);
+  //       this.error = errorMessage;
+  //       this.invalidLogin = true;
+  //       this.isLoading = false;
+  //     }
+  //   );
+  //   form.reset();
+  // }
+
+
+
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
@@ -29,26 +68,24 @@ export class AuthComponent {
     const email = form.value.email;
     const password = form.value.password;
 
-    let authObservable: Observable<AuthResponseData>;
-
     this.isLoading = true;
     if (this.isLogginMode) {
-      authObservable = this.authService.login(email, password);
-    } else {
-      authObservable = this.authService.signup(email, password);
+      this.authService.authenticationService(email, password).subscribe(
+        resData => {
+          console.log(resData);
+          this.isLoading = false;
+          this.loginSuccess = true;
+          this.successMessage = 'Login Successful!'
+          // navigate to recipes
+          this.router.navigate(['/recipes']);
+        }, errorMessage => {
+          console.log(errorMessage);
+          this.error = errorMessage;
+          this.invalidLogin = true;
+          this.isLoading = false;
+        }
+      );
     }
-    authObservable.subscribe(
-      resData => {
-        console.log(resData);
-        this.isLoading = false;
-        // navigate to recipes
-        this.router.navigate(['/recipes']);
-      }, errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    );
     form.reset();
   }
 }

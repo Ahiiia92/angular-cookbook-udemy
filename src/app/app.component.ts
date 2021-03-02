@@ -21,6 +21,6 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.authService.autoLogin();
+    // this.authService.autoLogin();
   }
 }

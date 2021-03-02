@@ -6,6 +6,8 @@
     <div *ngIf="isLoading" class="spinner-loading">
       <app-loading-spinner></app-loading-spinner>
     </div>
+    <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+    <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
     <form #authForm="ngForm"
           (ngSubmit)="onSubmit(authForm)"
           *ngIf="!isLoading"
