@@ -19,20 +19,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.userSub = this.authService.user.subscribe(user => {
-    //     // this.isAuthenticated = !user ? false : true;
-    //     this.isAuthenticated = !!user;
-    //     console.log(!user);
-    //     console.log(!!user);
-    // }
-    // );
+    // ================================================================================
+    //
+    //                UDEMY AUTHENTICATION CASES WITH FIREBASE
+    //
+    // ================================================================================
+    this.userSub = this.authService.user.subscribe(user => {
+        // this.isAuthenticated = !user ? false : true;
+        this.isAuthenticated = !!user;
+        console.log(!user);
+        console.log(!!user);
+    }
+    );
 
-    this.isAuthenticated = this.authService.isUserLoggidIn();
-    console.log('menu => ' + this.isAuthenticated);
+    // ================================================================================
+    //
+    //                OUR STEP BY STEP AUTHENTICATION WITH BACKEND
+    //
+    // ================================================================================
+    // this.isAuthenticated = this.authService.isUserLoggidIn();
+    // console.log('menu => ' + this.isAuthenticated);
   }
 
   ngOnDestroy() {
-    // this.userSub.unsubscribe();
+    // ================================================================================
+    //
+    //                UDEMY AUTHENTICATION CASES WITH FIREBASE
+    //
+    // ================================================================================
+    this.userSub.unsubscribe();
   }
 
   onLogout() {
