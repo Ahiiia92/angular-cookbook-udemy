@@ -1,10 +1,13 @@
-<h3 *ngIf="editMode">Update Recipe</h3>
-<h3 *ngIf="!editMode">New Recipe</h3>
+<h3>{{ editMode ? 'Update Recipe' : 'New Recipe' }}</h3>
 <div [hidden]="submitted">
   <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" formControlName="name"  name="Name">
+      <input type="text"
+             class="form-control"
+             id="name"
+             formControlName="name"
+             name="Name">
       <span
         *ngIf="!editForm.get('name').valid && editForm.get('name').touched"
         class="help-footnote">Please enter a Name</span>
@@ -12,7 +15,13 @@
 
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" formControlName="description" name="Description">
+      <textarea type="text"
+             class="form-control"
+             id="description"
+             formControlName="description"
+             name="Description"
+             rows="6"
+      ></textarea>
       <span
         *ngIf="!editForm.get('description').valid && editForm.get('description').touched"
         class="help-footnote">Please enter a Description</span>
@@ -20,10 +29,43 @@
 
     <div class="form-group">
       <label for="imagePath">Image URL</label>
-      <input type="text" class="form-control" id="imagePath" formControlName="imagePath" name="Image Url">
+      <input type="text"
+             class="form-control"
+             id="imagePath"
+             formControlName="imagePath"
+             name="Image Url">
       <span
         *ngIf="!editForm.get('imagePath').valid && editForm.get('imagePath').touched"
         class="help-footnote">Please enter an Image path</span>
+    </div>
+
+    <div class="col-xs-12">
+      <img src="" alt="" class="img-fluid">
+    </div>
+
+    <div class="d-flex justify-content-between" formArrayName="ingredients">
+      <div class="row" *ngFor="let ingredientCtrl of controls; let i = index"
+           [formGroupName]="i"></div>
+        <div class="col-xs-8">
+          <label for="ingName">Ingredient</label>
+          <input
+            type="text"
+            id="ingName"
+            class="form-control"
+            formControlName="name">
+        </div>
+        <div class="col-xs-2">
+          <label for="ingAmount">Amount</label>
+          <input
+            type="number"
+            id="ingAmount"
+            class="form-control"
+            formControlName="amount">
+        </div>
+        <div class="col-xs-8">
+          <label for="#">Action</label>
+          <button class="form-control btn btn-danger">X</button>
+        </div>
     </div>
 
 <!--    <div class="form-group">-->
@@ -53,7 +95,8 @@
 <!--      </select>-->
 <!--    </div>-->
 
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success m-2">Save</button>
+    <button type="button" class="btn btn-danger">Cancel</button>
 
   </form>
 </div>
