@@ -69,7 +69,7 @@ export class RecipesService {
   }
 
   getRecipeList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/`);
+    return this.http.get(`${this.baseUrl}`);
   }
 
   createRecipe(recipe: Object): Observable<Object> {

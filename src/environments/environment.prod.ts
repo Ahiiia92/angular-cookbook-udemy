@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://springcookbook21.herokuapp.com/',
+  apiUrl: 'https://springcookbook21.herokuapp.com',
 };
